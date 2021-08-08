@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -15,10 +15,11 @@ import {
 import R from '../constants/resources';
 
 const NewsFeed = ({navigation, item, detailsScreen, setWebView}) => {
+  const [photoError, setPhotoError] = useState(false);
   const {urlToImage, title, publishedAt, author, description} = item;
   const formatedDate = new Date(publishedAt).toDateString();
   const getPhoto = () => {
-    if (urlToImage) return {uri: urlToImage};
+    if (urlToImage && !photoError) return {uri: urlToImage};
     else return R.placeholder;
   };
   return (
@@ -27,7 +28,10 @@ const NewsFeed = ({navigation, item, detailsScreen, setWebView}) => {
       onPress={() => navigation.navigate('Details', {item})}
       disabled={detailsScreen}>
       <View style={styles.subContainer}>
-        <ImageBackground source={getPhoto()} style={styles.image}>
+        <ImageBackground
+          source={getPhoto()}
+          style={styles.image}
+          onError={() => setPhotoError(true)}>
           {detailsScreen && <Text style={styles.date}>{formatedDate}</Text>}
         </ImageBackground>
         <View style={styles.about}>
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
     fontFamily: mediumText,
   }),
   date: {
-    color: 'black',
+    color: 'white',
     position: 'absolute',
     right: 10,
     bottom: 10,

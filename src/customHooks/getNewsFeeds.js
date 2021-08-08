@@ -4,21 +4,10 @@ import NetInfo from '@react-native-community/netinfo';
 import {get} from 'lodash';
 
 const GetNewsFeeds = ({load, setLoad}) => {
-  const [newsFeeds, setNewsFeeds] = useState([
-    /* {
-      urlToImage:
-        'https://d27yqot8savz5t.cloudfront.net/screengrabs/images/000/013/385/small.jpg',
-      author: 'hazem Emad',
-      title: 'Amazing Images: The Best Science Photos of the Week',
-      publishedAt: '2011-04-11T10:20:30Z',
-      websiteUrl: 'https://www.siteinspire.com/websites?categories=136',
-      description:
-        'Each week we find the most intersting and informative articles we and along the way we uncover amzing Each week we find the most intersting and informative articles we and along the way we uncover amzing Each week we find the most intersting and informative articles we and along the way we uncover amzing Each week we find the most intersting and informative articles we and along the way we uncover amzing',
-    }, */
-  ]);
+  const [newsFeeds, setNewsFeeds] = useState([]);
   const [error, setError] = useState('');
 
-  const getLinkOne = new Promise((resolve, reject) =>
+   const getLinkOne = new Promise((resolve, reject) =>
     fetch(NEWS_ONE)
       .then(response => response.json())
       .then(json => resolve(json))
@@ -51,7 +40,7 @@ const GetNewsFeeds = ({load, setLoad}) => {
     }
     return () => (isSubscribed = false);
   }, [load]);
-
+  console.log(newsFeeds);
   return {newsFeeds, error};
 };
 

@@ -7,7 +7,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import {boldText, mediumText, regularText} from '../constants/fonts';
+import { mediumText, regularText} from '../constants/fonts';
 import R from '../constants/resources';
 const SideMenu = ({navigation}) => {
   const items = [

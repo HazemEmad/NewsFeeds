@@ -4,12 +4,20 @@ import NewsFeed from '../components/newsFeed';
 import {WebView} from 'react-native-webview';
 import {useIsFocused} from '@react-navigation/core';
 import {get} from 'lodash';
+import AppBar from '../components/appBar';
 const Details = ({navigation, route}) => {
   const [webView, setWebView] = useState(false);
+  const [load, setLoad] = useState(true);
+  const [url, setUrl] = useState(get(route, ['params', 'item', 'url'], ''));
+
   const isFocused = useIsFocused();
   useEffect(() => {
     setWebView(false);
   }, [isFocused]);
+  useEffect(() => {
+    !webView && setLoad(true);
+  }, [webView]);
+  console.log(load);
   return (
     <View style={styles.container}>
       <NewsFeed
@@ -23,8 +31,19 @@ const Details = ({navigation, route}) => {
         visible={webView}
         onRequestClose={() => setWebView(false)}
         transparent>
+        <AppBar
+          navigation
+          route
+          websiteLoad={load}
+          url={url}
+          close={() => setWebView(false)}
+          onUrlChange={url => setUrl(url)}
+        />
         <WebView
-          source={{uri: get(route, ['params', 'item', 'websiteUrl'], '')}}
+          source={{uri: url}}
+          onLoadStart={() => setLoad(true)}
+          onLoadEnd={() => setLoad(false)}
+          onNavigationStateChange={websiteState => setUrl(websiteState.url)}
         />
       </Modal>
     </View>

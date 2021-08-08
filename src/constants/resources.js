@@ -10,6 +10,9 @@ const live = require('../assets/images/menu/live.png');
 const selected = require('../assets/images/menu/selected.png');
 const profile = require('../assets/images/menu/profile.png');
 const wishlist = require('../assets/images/menu/wishlist.png');
+const close = require('../assets/images/listing/x.png');
+const load = require('../assets/images/listing/loader.png');
+
 export default {
   placeholder,
   search,
@@ -23,4 +26,6 @@ export default {
   selected,
   profile,
   wishlist,
+  close,
+  load,
 };
